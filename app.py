@@ -1,14 +1,24 @@
 #!/usr/bin/python3
-from flask import Flask, request, jsonify
+"""
+Código de ejemplo reformado con sintaxis correcta de código
+
+"""
 from functools import wraps
+from flask import Flask, request, jsonify
 
-app = Flask(__name__)
+APP = Flask(__name__)
 
 
-def check_card(f):
-    wraps(f)
+def check_card(func):
+	"""
+	Valida datos de trajeta de crédito
+	"""
+    wraps(func)
 
     def validation(*args, **kwargs):
+	"""
+	comentario sobre la funcion
+	"""
         data = request.get_json()
         if not data.get("status"):
             response = {"approved": False,
@@ -20,11 +30,11 @@ def check_card(f):
                         "newLimit": data.get("limit"),
                         "reason": "Transaction above the limit"}
             return jsonify(response)
-        return f(*args, **kwargs)
+            return func(*args, **kwargs)
     return (validation)
 
 
-@app.route("/api/transaction", methods=["POST"])
+@APP.route("/api/transaction", methods=["POST"])
 @check_card
 def transaction():
     card = request.get_json()
@@ -34,4 +44,4 @@ def transaction():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    APP.run(debug=True)
