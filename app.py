@@ -13,9 +13,9 @@ def check_card(func):
 	"""
 	Valida datos de trajeta de crédito
 	"""
-    wraps(func)
+	wraps(func)
 
-    def validation(*args, **kwargs):
+	def validation(*args, **kwargs):
 	"""
 	comentario sobre la funcion
 	"""
@@ -31,17 +31,17 @@ def check_card(func):
                         "reason": "Transaction above the limit"}
             return jsonify(response)
             return func(*args, **kwargs)
-    return (validation)
+	return (validation)
 
 
 @APP.route("/api/transaction", methods=["POST"])
 @check_card
 def transaction():
-    card = request.get_json()
-    new_limit = card.get("limit") - card.get("transaction").get("amount")
-    response = {"approved": True, "newLimit": new_limit}
-    return jsonify(response)
+	card = request.get_json()
+	new_limit = card.get("limit") - card.get("transaction").get("amount")
+	response = {"approved": True, "newLimit": new_limit}
+	return jsonify(response)
 
 
 if __name__ == '__main__':
-    APP.run(debug=True)
+	APP.run(debug=True)
