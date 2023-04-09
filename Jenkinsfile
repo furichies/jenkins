@@ -23,7 +23,7 @@ pipeline {
 				}
 			}	
 			steps {
-				sh 'docker build https://github.com/AllissonMMenezes/Chapter10.git -t chapter10:latest'
+				sh 'docker build https://github.com/AlissonMMenezes/Chapter10.git -t chapter10:latest'
 			}
 		}	
 		stage('Deploy') {
