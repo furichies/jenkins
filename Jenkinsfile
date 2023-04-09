@@ -17,18 +17,23 @@ pipeline {
 			}
 		}
 		stage('Build') {
+			agent {
+				node {
+					label "dcokerserver";
+				}
+			}	
 			steps {
-				sh 'exit 1'
+				sh 'docker build https://github.com/AllissonMMenezes/Chapter10.git -t chapter10:latest'
 			}
 		}	
-		stage('Delivery') {
-			steps {
-				sh 'exit 1'
-			}
-		}
 		stage('Deploy') {
+			agent {
+				node {
+					label "dcokerserver";
+				}
+			}	
 			steps {
-				sh 'exit 1'
+				sh 'docker run -tdi -p 5000:5000 chapter10:latest'
 			}
 		}
 	}
